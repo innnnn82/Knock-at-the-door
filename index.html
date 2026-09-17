@@ -11,11 +11,11 @@
             theme: {
                 extend: {
                     colors: {
-                        'door-brown': '#4A2C20',
-                        'warm-gold': '#C8A97E',
-                        'soft-white': '#F5F1E8',
-                        'dark-bg': '#12100E',
-                        'muted-gray': '#8A8178',
+                        'door-brown': '#5C3A2E',
+                        'warm-gold': '#D4B892',
+                        'soft-white': '#F7F3EB',
+                        'dark-bg': '#1A1714',
+                        'muted-gray': '#9A9186',
                     },
                     fontFamily: {
                         serif: ['Playfair Display', 'serif'],
@@ -28,7 +28,10 @@
     <style type="text/tailwindcss">
         @layer utilities {
             .text-shadow {
-                text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+                text-shadow: 0 2px 16px rgba(0,0,0,0.7);
+            }
+            .text-shadow-soft {
+                text-shadow: 0 1px 8px rgba(0,0,0,0.5);
             }
             .scroll-smooth {
                 scroll-behavior: smooth;
@@ -107,26 +110,27 @@
 
 <!-- 首屏 Hero -->
 <section id="hero" class="relative h-screen w-full flex items-center justify-center overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-dark-bg z-10"></div>
-    <!-- 叩门主视觉封面 -->
-    <img src="https://picsum.photos/id/1060/1920/1080" alt="叩门 电影主视觉" class="absolute inset-0 w-full h-full object-cover">
+    <!-- 遮罩调亮：从70%暗度降为45%，整体更通透 -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/45 via-black/25 to-dark-bg/80 z-10"></div>
+    <!-- 封面主图 -->
+    <img src="cover.jpg" alt="叩门 电影主视觉" class="absolute inset-0 w-full h-full object-cover">
     
     <div class="relative z-20 text-center px-6 fade-in">
         <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-shadow mb-6">
             <span lang="zh">叩门</span>
             <span lang="en" class="hidden">Knock at the Door</span>
         </h1>
-        <p class="text-warm-gold text-base md:text-xl tracking-widest mb-3">
+        <p class="text-warm-gold text-base md:text-xl tracking-widest mb-3 text-shadow-soft">
             <span lang="zh">AI辅助叙事短片 · 后疫情新传统视觉美学</span>
             <span lang="en" class="hidden">AI-Assisted Narrative Short Film with Post-Pandemic Neo-Traditional Visual Aesthetics</span>
         </p>
-        <p class="text-muted-gray text-sm md:text-base">
+        <p class="text-soft-white/80 text-sm md:text-base text-shadow-soft">
             <span lang="zh">香港唐楼 · 三代人 · 关于孤独与联结的故事</span>
             <span lang="en" class="hidden">Hong Kong Tong Lau · Three Generations · A Story of Loneliness and Connection</span>
         </p>
         
         <div class="mt-12">
-            <a href="#about" class="inline-block border border-warm-gold text-warm-gold px-8 py-3 rounded-sm hover:bg-warm-gold hover:text-dark-bg transition-all duration-300">
+            <a href="#about" class="inline-block border border-warm-gold text-warm-gold px-8 py-3 rounded-sm hover:bg-warm-gold hover:text-dark-bg transition-all duration-300 backdrop-blur-sm">
                 <span lang="zh">了解项目</span>
                 <span lang="en" class="hidden">Explore Project</span>
             </a>
@@ -209,7 +213,7 @@
 </section>
 
 <!-- 故事与人物 -->
-<section id="story" class="py-24 px-6 bg-black/30">
+<section id="story" class="py-24 px-6 bg-black/25">
     <div class="max-w-6xl mx-auto fade-in">
         <h2 class="font-serif text-3xl md:text-4xl font-semibold text-warm-gold mb-12 text-center">
             <span lang="zh">故事与人物</span>
@@ -316,7 +320,7 @@
         
         <div class="grid md:grid-cols-2 gap-6 mb-10">
             <div class="scene-card rounded-lg overflow-hidden border border-muted-gray/20">
-                <img src="0fc3e20d73ea9f83b1e84dcf1a81b9e7.jpg="香港转角唐楼 日景" class="scene-img w-full h-72 object-cover">
+                <img src="99b72667c2f1abe08adc6ae2dbdc9a42.jpg" alt="香港转角唐楼 日景" class="scene-img w-full h-72 object-cover">
                 <div class="p-5 bg-black/20">
                     <p class="text-soft-white font-medium mb-1">
                         <span lang="zh">转角唐楼 · 日景</span>
@@ -330,7 +334,7 @@
             </div>
             
             <div class="scene-card rounded-lg overflow-hidden border border-muted-gray/20">
-                <img src=99b72667c2f1abe08adc6ae2dbdc9a42.jpg="香港转角唐楼 黄昏" class="scene-img w-full h-72 object-cover">
+                <img src="0fc3e20d73ea9f83b1e84dcf1a81b9e7.jpg" alt="香港转角唐楼 黄昏" class="scene-img w-full h-72 object-cover">
                 <div class="p-5 bg-black/20">
                     <p class="text-soft-white font-medium mb-1">
                         <span lang="zh">转角唐楼 · 黄昏</span>
@@ -366,7 +370,7 @@
 </section>
 
 <!-- 视觉符号系统 -->
-<section class="py-24 px-6 bg-black/30">
+<section class="py-24 px-6 bg-black/25">
     <div class="max-w-5xl mx-auto fade-in">
         <h2 class="font-serif text-3xl md:text-4xl font-semibold text-warm-gold mb-4 text-center">
             <span lang="zh">视觉符号系统</span>
@@ -542,7 +546,7 @@
 </section>
 
 <!-- 技术挑战 -->
-<section id="challenges" class="py-24 px-6 bg-black/30">
+<section id="challenges" class="py-24 px-6 bg-black/25">
     <div class="max-w-5xl mx-auto fade-in">
         <h2 class="font-serif text-3xl md:text-4xl font-semibold text-warm-gold mb-4 text-center">
             <span lang="zh">技术挑战与解决方案</span>
@@ -704,7 +708,7 @@
 </section>
 
 <!-- 主创团队 -->
-<section class="py-24 px-6 bg-black/30">
+<section class="py-24 px-6 bg-black/25">
     <div class="max-w-5xl mx-auto fade-in">
         <h2 class="font-serif text-3xl md:text-4xl font-semibold text-warm-gold mb-12 text-center">
             <span lang="zh">主创团队</span>
@@ -796,7 +800,7 @@
 </footer>
 
 <!-- 叩门交互按钮 -->
-<button id="knockBtn" class="fixed bottom-8 right-8 z-40 w-14 h-14 rounded-full bg-door-brown/80 border border-warm-gold/50 text-warm-gold flex items-center justify-center hover:bg-door-brown transition-all duration-300 backdrop-blur-sm" title="敲门">
+<button id="knockBtn" class="fixed bottom-8 right-8 z-40 w-14 h-14 rounded-full bg-door-brown/80 border border-warm-gold/50 text-warm-gold flex items-center justify-center hover:bg-door-brown transition-all duration-300 backdrop-blur-sm shadow-lg" title="敲门">
     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12H9m6 0a2 2 0 11-4 0 2 2 0 014 0zm-6 0a2 2 0 11-4 0 2 2 0 014 0z"></path>
     </svg>
@@ -865,30 +869,30 @@
         knockBtn.appendChild(ripple);
         setTimeout(() => ripple.remove(), 600);
 
-        // Web Audio 合成敲门声
+        // Web Audio 合成真实敲门声
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         
-        function playKnock(time, volume = 0.3) {
+        function playKnock(time, volume = 0.35) {
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             
             osc.type = 'sine';
-            osc.frequency.setValueAtTime(150, time);
-            osc.frequency.exponentialRampToValueAtTime(60, time + 0.1);
+            osc.frequency.setValueAtTime(160, time);
+            osc.frequency.exponentialRampToValueAtTime(70, time + 0.12);
             
             gain.gain.setValueAtTime(volume, time);
-            gain.gain.exponentialRampToValueAtTime(0.001, time + 0.15);
+            gain.gain.exponentialRampToValueAtTime(0.001, time + 0.18);
             
             osc.connect(gain);
             gain.connect(audioCtx.destination);
             
             osc.start(time);
-            osc.stop(time + 0.15);
+            osc.stop(time + 0.18);
         }
         
         const now = audioCtx.currentTime;
-        playKnock(now, 0.4);
-        playKnock(now + 0.18, 0.35);
+        playKnock(now, 0.45);
+        playKnock(now + 0.2, 0.38);
     });
 </script>
 
