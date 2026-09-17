@@ -48,6 +48,12 @@
             .character-card:hover .character-img {
                 transform: scale(1.03);
             }
+            .scene-img {
+                transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            }
+            .scene-card:hover .scene-img {
+                transform: scale(1.02);
+            }
         }
     </style>
 </head>
@@ -61,14 +67,18 @@
             <span lang="en" class="hidden">Knock at the Door</span>
         </a>
         
-        <div class="hidden md:flex items-center gap-8 text-sm">
+        <div class="hidden md:flex items-center gap-7 text-sm">
             <a href="#about" class="hover:text-warm-gold transition-colors duration-300">
                 <span lang="zh">项目介绍</span>
                 <span lang="en" class="hidden">About</span>
             </a>
-            <a href="#creators" class="hover:text-warm-gold transition-colors duration-300">
-                <span lang="zh">主创团队</span>
-                <span lang="en" class="hidden">Creators</span>
+            <a href="#story" class="hover:text-warm-gold transition-colors duration-300">
+                <span lang="zh">故事人物</span>
+                <span lang="en" class="hidden">Story</span>
+            </a>
+            <a href="#scenes" class="hover:text-warm-gold transition-colors duration-300">
+                <span lang="zh">场景视觉</span>
+                <span lang="en" class="hidden">Scenes</span>
             </a>
             <a href="#workflow" class="hover:text-warm-gold transition-colors duration-300">
                 <span lang="zh">创作流程</span>
@@ -78,9 +88,9 @@
                 <span lang="zh">技术挑战</span>
                 <span lang="en" class="hidden">Challenges</span>
             </a>
-            <a href="#story" class="hover:text-warm-gold transition-colors duration-300">
-                <span lang="zh">故事人物</span>
-                <span lang="en" class="hidden">Story</span>
+            <a href="#academic" class="hover:text-warm-gold transition-colors duration-300">
+                <span lang="zh">学术延伸</span>
+                <span lang="en" class="hidden">Research</span>
             </a>
             <a href="#watch" class="hover:text-warm-gold transition-colors duration-300">
                 <span lang="zh">观看影片</span>
@@ -98,20 +108,21 @@
 <!-- 首屏 Hero -->
 <section id="hero" class="relative h-screen w-full flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-dark-bg z-10"></div>
-    <img src="https://picsum.photos/id/1060/1920/1080" alt="叩门 电影海报" class="absolute inset-0 w-full h-full object-cover">
+    <!-- 叩门主视觉封面 -->
+    <img src="https://picsum.photos/id/1060/1920/1080" alt="叩门 电影主视觉" class="absolute inset-0 w-full h-full object-cover">
     
     <div class="relative z-20 text-center px-6 fade-in">
-        <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-shadow mb-4">
+        <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-shadow mb-6">
             <span lang="zh">叩门</span>
             <span lang="en" class="hidden">Knock at the Door</span>
         </h1>
-        <p class="text-warm-gold text-base md:text-xl tracking-widest mb-2">
+        <p class="text-warm-gold text-base md:text-xl tracking-widest mb-3">
             <span lang="zh">AI辅助叙事短片 · 后疫情新传统视觉美学</span>
             <span lang="en" class="hidden">AI-Assisted Narrative Short Film with Post-Pandemic Neo-Traditional Visual Aesthetics</span>
         </p>
         <p class="text-muted-gray text-sm md:text-base">
-            <span lang="zh">SIGGRAPH Asia 2026 · Tokyo, Japan</span>
-            <span lang="en" class="hidden">SIGGRAPH Asia 2026 · Tokyo, Japan</span>
+            <span lang="zh">香港唐楼 · 三代人 · 关于孤独与联结的故事</span>
+            <span lang="en" class="hidden">Hong Kong Tong Lau · Three Generations · A Story of Loneliness and Connection</span>
         </p>
         
         <div class="mt-12">
@@ -141,8 +152,8 @@
             <div class="grid md:grid-cols-2 gap-12">
                 <div>
                     <h3 class="font-serif text-xl font-medium mb-4 text-soft-white">
-                        <span lang="zh">研究背景</span>
-                        <span lang="en" class="hidden">Research Motivation</span>
+                        <span lang="zh">创作背景</span>
+                        <span lang="en" class="hidden">Background</span>
                     </h3>
                     <p class="text-muted-gray leading-relaxed mb-4">
                         <span lang="zh">后疫情时代，城市居民的社会孤立与生存不安全感普遍上升。在香港，承载数十年城市记忆的历史唐楼正经历政府资助的翻新，同时面临拆除危机，体现着保存与转型的张力。</span>
@@ -217,7 +228,7 @@
             <!-- 林越 -->
             <div class="character-card group">
                 <div class="mb-5 rounded-lg overflow-hidden border border-muted-gray/20 bg-black/20">
-                    <img src="linyue.jpg" alt="林越 角色定妆照" class="character-img w-full h-96 object-cover object-center">
+                    <img src="linyue.jpg" alt="林越 角色定妆照" class="character-img w-full h-[420px] object-cover object-center">
                 </div>
                 <div class="text-center">
                     <h3 class="font-serif text-xl font-medium text-soft-white mb-1">
@@ -238,7 +249,7 @@
             <!-- 强叔 -->
             <div class="character-card group">
                 <div class="mb-5 rounded-lg overflow-hidden border border-muted-gray/20 bg-black/20">
-                    <img src="qiangshu.jpg" alt="陈国强 角色定妆照" class="character-img w-full h-96 object-cover object-center">
+                    <img src="qiangshu.jpg" alt="陈国强 角色定妆照" class="character-img w-full h-[420px] object-cover object-center">
                 </div>
                 <div class="text-center">
                     <h3 class="font-serif text-xl font-medium text-soft-white mb-1">
@@ -259,7 +270,7 @@
             <!-- 苏玉珍 -->
             <div class="character-card group">
                 <div class="mb-5 rounded-lg overflow-hidden border border-muted-gray/20 bg-black/20">
-                    <img src="sutai.jpg" alt="苏玉珍 角色定妆照" class="character-img w-full h-96 object-cover object-center">
+                    <img src="sutai.jpg" alt="苏玉珍 角色定妆照" class="character-img w-full h-[420px] object-cover object-center">
                 </div>
                 <div class="text-center">
                     <h3 class="font-serif text-xl font-medium text-soft-white mb-1">
@@ -291,8 +302,71 @@
     </div>
 </section>
 
+<!-- 场景视觉 -->
+<section id="scenes" class="py-24 px-6">
+    <div class="max-w-6xl mx-auto fade-in">
+        <h2 class="font-serif text-3xl md:text-4xl font-semibold text-warm-gold mb-4 text-center">
+            <span lang="zh">场景视觉：新传统唐楼</span>
+            <span lang="en" class="hidden">Visual Style: Neo-Traditional Tong Lau</span>
+        </h2>
+        <p class="text-center text-muted-gray mb-12 max-w-2xl mx-auto">
+            <span lang="zh">保留历史建筑的质感与温度，同时融入现代生活痕迹，在新旧之间映照人物内心的张力</span>
+            <span lang="en" class="hidden">Preserving the texture of historic buildings while integrating traces of modern life, reflecting the inner tension of characters</span>
+        </p>
+        
+        <div class="grid md:grid-cols-2 gap-6 mb-10">
+            <div class="scene-card rounded-lg overflow-hidden border border-muted-gray/20">
+                <img src="https://picsum.photos/id/1031/1200/800" alt="香港转角唐楼 日景" class="scene-img w-full h-72 object-cover">
+                <div class="p-5 bg-black/20">
+                    <p class="text-soft-white font-medium mb-1">
+                        <span lang="zh">转角唐楼 · 日景</span>
+                        <span lang="en" class="hidden">Corner Tong Lau · Daytime</span>
+                    </p>
+                    <p class="text-muted-gray text-sm">
+                        <span lang="zh">米黄色转角骑楼，晾晒的衣物、外露的冷气机、底层临街商铺，典型香港旧城区肌理。背景摩天大楼与旧楼形成强烈的高低差，隐喻城市的割裂与挤压。</span>
+                        <span lang="en" class="hidden">Beige corner tenement with hanging clothes, exposed AC units and ground-floor shops. Skyscrapers in the background create a strong contrast, metaphor for urban fragmentation.</span>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="scene-card rounded-lg overflow-hidden border border-muted-gray/20">
+                <img src="https://picsum.photos/id/1040/1200/800" alt="香港转角唐楼 黄昏" class="scene-img w-full h-72 object-cover">
+                <div class="p-5 bg-black/20">
+                    <p class="text-soft-white font-medium mb-1">
+                        <span lang="zh">转角唐楼 · 黄昏</span>
+                        <span lang="en" class="hidden">Corner Tong Lau · Dusk</span>
+                    </p>
+                    <p class="text-muted-gray text-sm">
+                        <span lang="zh">暖金色黄昏光线笼罩，红色的士驶过街角，店铺灯牌次第亮起。旧楼在暮色中褪去粗糙感，呈现出温柔的生活气息，对应故事中关系逐渐融化的阶段。</span>
+                        <span lang="en" class="hidden">Warm golden dusk light, red taxis passing by, shop signs lighting up. The old building softens in twilight, corresponding to the thawing of relationships in the story.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+            <div class="bg-black/20 p-4 rounded-sm text-center">
+                <p class="text-warm-gold font-medium mb-1">水磨石楼梯</p>
+                <p class="text-muted-gray text-xs">历史材质质感，贯穿全片的垂直动线</p>
+            </div>
+            <div class="bg-black/20 p-4 rounded-sm text-center">
+                <p class="text-warm-gold font-medium mb-1">绿色铁闸</p>
+                <p class="text-muted-gray text-xs">公共与私密的边界，推拉声是场景标志音</p>
+            </div>
+            <div class="bg-black/20 p-4 rounded-sm text-center">
+                <p class="text-warm-gold font-medium mb-1">感应白灯</p>
+                <p class="text-muted-gray text-xs">现代翻新元素，冷光与暖黄室内形成对比</p>
+            </div>
+            <div class="bg-black/20 p-4 rounded-sm text-center">
+                <p class="text-warm-gold font-medium mb-1">木门框</p>
+                <p class="text-muted-gray text-xs">核心叙事载体，门的开合对应心理距离</p>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- 视觉符号系统 -->
-<section class="py-24 px-6">
+<section class="py-24 px-6 bg-black/30">
     <div class="max-w-5xl mx-auto fade-in">
         <h2 class="font-serif text-3xl md:text-4xl font-semibold text-warm-gold mb-4 text-center">
             <span lang="zh">视觉符号系统</span>
@@ -353,7 +427,7 @@
 </section>
 
 <!-- 创作工作流 -->
-<section id="workflow" class="py-24 px-6 bg-black/30">
+<section id="workflow" class="py-24 px-6">
     <div class="max-w-5xl mx-auto fade-in">
         <h2 class="font-serif text-3xl md:text-4xl font-semibold text-warm-gold mb-4 text-center">
             <span lang="zh">创作工作流</span>
@@ -468,7 +542,7 @@
 </section>
 
 <!-- 技术挑战 -->
-<section id="challenges" class="py-24 px-6">
+<section id="challenges" class="py-24 px-6 bg-black/30">
     <div class="max-w-5xl mx-auto fade-in">
         <h2 class="font-serif text-3xl md:text-4xl font-semibold text-warm-gold mb-4 text-center">
             <span lang="zh">技术挑战与解决方案</span>
@@ -547,8 +621,90 @@
     </div>
 </section>
 
+<!-- 学术延伸 -->
+<section id="academic" class="py-24 px-6">
+    <div class="max-w-5xl mx-auto fade-in">
+        <h2 class="font-serif text-3xl md:text-4xl font-semibold text-warm-gold mb-4 text-center">
+            <span lang="zh">学术延伸</span>
+            <span lang="en" class="hidden">Academic Extension</span>
+        </h2>
+        <p class="text-center text-muted-gray mb-12 max-w-2xl mx-auto">
+            <span lang="zh">摘自《人机共生：AI时代电影制作实操指南》（徐娴、徐婷 著，北京大学出版社2026）第10章完整案例</span>
+            <span lang="en" class="hidden">Excerpted from Chapter 10 of "Human-AI Symbiosis: Practical Guide to Filmmaking in the AI Era" (Peking University Press, 2026)</span>
+        </p>
+
+        <div class="border border-warm-gold/30 rounded-sm p-8 bg-black/20 mb-10">
+            <h3 class="font-serif text-xl font-medium text-soft-white mb-4">
+                <span lang="zh">关于本书</span>
+                <span lang="en" class="hidden">About the Book</span>
+            </h3>
+            <p class="text-muted-gray leading-relaxed mb-4">
+                <span lang="zh">本书不是单纯的提示词工具书，是国内首部「理论+全链路实操+伦理批判」结合的AI电影专著。核心观点：AI不是替代导演，而是作为协作副导演；人类创作者负责叙事决策、审美判断、人文内核，AI负责素材生成、视觉迭代、音频辅助，即「人机共创」。</span>
+                <span lang="en" class="hidden">This is not just a prompt book, but the first Chinese AI film monograph combining theory, full-process practice and ethical critique. Core idea: AI is not a replacement for directors, but a collaborative co-director.</span>
+            </p>
+            <p class="text-muted-gray text-sm">
+                <span lang="zh">作者：徐娴（岭南大学数码艺术与创意产业系助理教授）、徐婷（资深影视导演）</span>
+                <span lang="en" class="hidden">Authors: Xian Xu (Lingnan University), Ting Xu (Senior Film Director)</span>
+            </p>
+        </div>
+
+        <div class="space-y-10">
+            <div>
+                <h3 class="font-serif text-lg font-medium text-soft-white mb-4 flex items-center gap-3">
+                    <span class="text-warm-gold font-serif text-2xl">一</span>
+                    <span lang="zh">人机共创的核心定位</span>
+                    <span lang="en" class="hidden">Core Position of Human-AI Co-Creation</span>
+                </h3>
+                <div class="pl-8 border-l border-warm-gold/30">
+                    <p class="text-muted-gray leading-relaxed">
+                        <span lang="zh">人类主导所有核心创作环节：叙事结构、人物设定、情绪节奏、审美判断、主题表达。AI承担执行性、重复性、试错性工作：视觉素材生成、风格迭代、动作补间、音效合成。创作者的身份从「上帝作者」转向「策展对话者」，在与AI的反复对话中筛选、修正、引导，最终逼近心中的影像。</span>
+                        <span lang="en" class="hidden">Humans lead all core creative links: narrative structure, character design, emotional rhythm, aesthetic judgment, theme expression. AI takes on executive, repetitive, trial-and-error tasks.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-serif text-lg font-medium text-soft-white mb-4 flex items-center gap-3">
+                    <span class="text-warm-gold font-serif text-2xl">二</span>
+                    <span lang="zh">七条人机共创原则</span>
+                    <span lang="en" class="hidden">Seven Principles of Human-AI Co-Creation</span>
+                </h3>
+                <div class="pl-8 border-l border-warm-gold/30">
+                    <ol class="text-muted-gray space-y-2.5 list-decimal list-inside leading-relaxed">
+                        <li><span class="text-soft-white font-medium">叙事优先原则：</span><span lang="zh">所有技术手段服务于叙事，不为炫技使用AI</span><span lang="en" class="hidden">Narrative first: all techniques serve the story</span></li>
+                        <li><span class="text-soft-white font-medium">人类终审原则：</span><span lang="zh">每一轮输出必须经过人工筛选判断，不直接使用AI结果</span><span lang="en" class="hidden">Human final review: every output must be manually screened</span></li>
+                        <li><span class="text-soft-white font-medium">分层控制原则：</span><span lang="zh">将创作拆解为不同层级，分别设定AI的参与度与权限</span><span lang="en" class="hidden">Layered control: break down creation into layers with different AI permissions</span></li>
+                        <li><span class="text-soft-white font-medium">细节锚定原则：</span><span lang="zh">关键视觉元素必须人工设定锚点，防止AI自由漂移</span><span lang="en" class="hidden">Detail anchoring: key visual elements must be manually set</span></li>
+                        <li><span class="text-soft-white font-medium">情绪具象原则：</span><span lang="zh">抽象情绪转化为具体的视觉、听觉细节再输入AI</span><span lang="en" class="hidden">Emotional concreteness: abstract emotions translated into concrete details</span></li>
+                        <li><span class="text-soft-white font-medium">文化内嵌原则：</span><span lang="zh">本土文化细节分层植入，避免刻板印象与文化失真</span><span lang="en" class="hidden">Cultural embedding: layered implantation of local cultural details</span></li>
+                        <li><span class="text-soft-white font-medium">伦理自觉原则：</span><span lang="zh">全程保持对AI版权、算法偏见、数字伦理的反思</span><span lang="en" class="hidden">Ethical awareness: keep reflecting on copyright, bias and digital ethics</span></li>
+                    </ol>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-serif text-lg font-medium text-soft-white mb-4 flex items-center gap-3">
+                    <span class="text-warm-gold font-serif text-2xl">三</span>
+                    <span lang="zh">东方美学的算法转译路径</span>
+                    <span lang="en" class="hidden">Algorithm Translation of Oriental Aesthetics</span>
+                </h3>
+                <div class="pl-8 border-l border-warm-gold/30">
+                    <p class="text-muted-gray leading-relaxed mb-3">
+                        <span lang="zh">《叩门》作为本土创作案例，探索了如何将东方美学转化为算法可识别的视觉语言：不直接使用「水墨」「国风」等标签化词汇，而是拆解为具体的视觉参数——低对比度、柔和边界、留白构图、暖金色温、克制表情、缓慢运镜，让AI在写实框架内自然呈现东方叙事的留白与韵味。</span>
+                        <span lang="en" class="hidden">As a local creation case, Knock at the Door explores how to translate oriental aesthetics into algorithm-recognizable visual language, dismantled into specific visual parameters.</span>
+                    </p>
+                    <p class="text-muted-gray text-sm">
+                        <span lang="zh">书中同时指出：当前AI影像的「同质化危机」本质是西方训练数据的审美霸权，本土创作者需要建立自己的视觉语料与提示词体系，走出有文化主体性的AI影像道路。</span>
+                        <span lang="en" class="hidden">The book points out that the "homogenization crisis" of AI images is essentially the aesthetic hegemony of Western training data.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- 主创团队 -->
-<section id="creators" class="py-24 px-6 bg-black/30">
+<section class="py-24 px-6 bg-black/30">
     <div class="max-w-5xl mx-auto fade-in">
         <h2 class="font-serif text-3xl md:text-4xl font-semibold text-warm-gold mb-12 text-center">
             <span lang="zh">主创团队</span>
@@ -560,8 +716,8 @@
                 <h3 class="font-serif text-lg font-medium text-soft-white mb-1">Ting Xu</h3>
                 <p class="text-warm-gold text-sm mb-2">徐婷</p>
                 <p class="text-muted-gray text-xs leading-relaxed">
-                    The Hong Kong University of Science and Technology (Guangzhou)<br>
-                    txu560@connect.hkust-gz.edu.cn
+                    <span lang="zh">编剧/导演<br>香港科技大学（广州）</span>
+                    <span lang="en" class="hidden">Writer / Director<br>HKUST (Guangzhou)</span>
                 </p>
             </div>
             
@@ -569,8 +725,8 @@
                 <h3 class="font-serif text-lg font-medium text-soft-white mb-1">Zixuan Lin</h3>
                 <p class="text-warm-gold text-sm mb-2">林子煊</p>
                 <p class="text-muted-gray text-xs leading-relaxed">
-                    Lingnan University, Hong Kong<br>
-                    zixuan.lin@ln.hk
+                    <span lang="zh">联合创作<br>岭南大学</span>
+                    <span lang="en" class="hidden">Co-Creator<br>Lingnan University</span>
                 </p>
             </div>
             
@@ -578,17 +734,17 @@
                 <h3 class="font-serif text-lg font-medium text-soft-white mb-1">Shiqin Hou</h3>
                 <p class="text-warm-gold text-sm mb-2">侯诗琴</p>
                 <p class="text-muted-gray text-xs leading-relaxed">
-                    The Hong Kong University of Science and Technology<br>
-                    shouaf@connect.ust.hk
+                    <span lang="zh">联合创作<br>香港科技大学</span>
+                    <span lang="en" class="hidden">Co-Creator<br>HKUST</span>
                 </p>
             </div>
             
             <div class="text-center p-6 border border-muted-gray/20 rounded-sm hover:border-warm-gold/50 transition-colors duration-300">
                 <h3 class="font-serif text-lg font-medium text-soft-white mb-1">Xian Xu*</h3>
-                <p class="text-warm-gold text-sm mb-2">徐娴（通讯作者）</p>
+                <p class="text-warm-gold text-sm mb-2">徐娴</p>
                 <p class="text-muted-gray text-xs leading-relaxed">
-                    Lingnan University, Hong Kong<br>
-                    xianxu@ln.edu.hk
+                    <span lang="zh">通讯作者<br>岭南大学</span>
+                    <span lang="en" class="hidden">Corresponding Author<br>Lingnan University</span>
                 </p>
             </div>
         </div>
@@ -603,8 +759,8 @@
             <span lang="en" class="hidden">Watch the Film</span>
         </h2>
         <p class="text-muted-gray mb-10 max-w-xl mx-auto">
-            <span lang="zh">《叩门》全片现已在哔哩哔哩上线，点击下方按钮前往观看完整5分钟版本。</span>
-            <span lang="en" class="hidden">The full 5-minute film is now available on Bilibili. Click the button below to watch.</span>
+            <span lang="zh">《叩门》全片现已上线，点击下方按钮前往观看完整版本。</span>
+            <span lang="en" class="hidden">The full film is now available online. Click the button below to watch.</span>
         </p>
         
         <a href="https://www.bilibili.com/video/BV12teM6RELF/?share_source=copy_web&vd_source=dd8e104763112035a17c85694ed3e6f6" target="_blank" rel="noopener noreferrer" class="inline-block bg-warm-gold text-dark-bg px-10 py-4 rounded-sm font-medium hover:bg-warm-gold/90 transition-colors duration-300">
@@ -624,11 +780,12 @@
     <div class="max-w-5xl mx-auto">
         <div class="text-center mb-8">
             <p class="text-muted-gray text-sm mb-3">
-                <span lang="zh">本作品入选 SIGGRAPH Asia 2026 Technical Communications</span>
-                <span lang="en" class="hidden">Accepted to SIGGRAPH Asia 2026 Technical Communications</span>
+                <span lang="zh">《叩门》AI辅助叙事短片创作项目</span>
+                <span lang="en" class="hidden">Knock at the Door - AI-Assisted Narrative Short Film Project</span>
             </p>
-            <p class="text-muted-gray/70 text-xs leading-relaxed max-w-4xl mx-auto">
-                ACM Reference Format: Ting Xu, Zixuan Lin, Shiqin Hou, and Xian Xu*. 2026. Knock at the Door: AI-Assisted Narrative Short Film Creation with Post-Pandemic Neo-Traditional Visual Aesthetics. In SIGGRAPH Asia 2026 Technical Communications, December 14–17, 2026, Tokyo, Japan. ACM, New York, NY, USA, 4 pages. https://doi.org/10.1145/3641519.3652487
+            <p class="text-muted-gray/70 text-xs leading-relaxed max-w-3xl mx-auto">
+                <span lang="zh">相关理论与方法收录于《人机共生：AI时代电影制作实操指南》，北京大学出版社2026年版。</span>
+                <span lang="en" class="hidden">Theory and methodology included in "Human-AI Symbiosis: Practical Guide to Filmmaking in the AI Era", Peking University Press, 2026.</span>
             </p>
         </div>
         
