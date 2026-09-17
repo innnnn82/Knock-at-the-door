@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>叩门 | Knock at the Door - AI辅助叙事短片</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'door-brown': '#4A2C20',
+                        'warm-gold': '#C8A97E',
+                        'soft-white': '#F5F1E8',
+                        'dark-bg': '#12100E',
+                        'muted-gray': '#8A8178',
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Noto Sans SC', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+            }
+            .scroll-smooth {
+                scroll-behavior: smooth;
+            }
+            .fade-in {
+                opacity: 0;
+                transform: translateY(24px);
+                transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            }
+            .fade-in.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            .character-img {
+                transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            }
+            .character-card:hover .character-img {
+                transform: scale(1.03);
+            }
+        }
+    </style>
+</head>
+<body class="bg-dark-bg text-soft-white font-sans scroll-smooth antialiased">
+
+<!-- 导航栏 -->
+<nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-500 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <a href="#hero" class="font-serif text-xl font-semibold text-warm-gold">
+            <span lang="zh">叩门</span>
+            <span lang="en" class="hidden">Knock at the Door</span>
+        </a>
+        
+        <div class="hidden md:flex items-center gap-8 text-sm">
+            <a href="#about" class="hover:text-warm-gold transition-colors duration-300">
+                <span lang="zh">项目介绍</span>
+                <span lang="en" class="hidden">About</span>
+            </a>
+            <a href="#creators" class="hover:text-warm-gold transition-colors duration-300">
+                <span lang="zh">主创团队</span>
+                <span lang="en" class="hidden">Creators</span>
+            </a>
+            <a href="#workflow" class="hover:text-warm-gold transition-colors duration-300">
+                <span lang="zh">创作流程</span>
+                <span lang="en" class="hidden">Workflow</span>
+            </a>
+            <a href="#challenges" class="hover:text-warm-gold transition-colors duration-300">
+                <span lang="zh">技术挑战</span>
+                <span lang="en" class="hidden">Challenges</span>
+            </a>
+            <a href="#story" class="hover:text-warm-gold transition-colors duration-300">
+                <span lang="zh">故事人物</span>
+                <span lang="en" class="hidden">Story</span>
+            </a>
+            <a href="#watch" class="hover:text-warm-gold transition-colors duration-300">
+                <span lang="zh">观看影片</span>
+                <span lang="en" class="hidden">Watch</span>
+            </a>
+        </div>
+
+        <button id="langToggle" class="border border-warm-gold text-warm-gold px-3 py-1.5 text-xs rounded-sm hover:bg-warm-gold hover:text-dark-bg transition-all duration-300">
+            <span lang="zh">EN</span>
+            <span lang="en" class="hidden">中</span>
+        </button>
+    </div>
+</nav>
+
+<!-- 首屏 Hero -->
+<section id="hero" class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-dark-bg z-10"></div>
+    <img src="https://picsum.photos/id/1060/1920/1080" alt="叩门 电影海报" class="absolute inset-0 w-full h-full object-cover">
+    
+    <div class="relative z-20 text-center px-6 fade-in">
+        <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-shadow mb-4">
+            <span lang="zh">叩门</span>
+            <span lang="en" class="hidden">Knock at the Door</span>
+        </h1>
+        <p class="text-warm-gold text-base md:text-xl tracking-widest mb-2">
+            <span lang="zh">AI辅助叙事短片 · 后疫情新传统视觉美学</span>
+            <span lang="en" class="hidden">AI-Assisted Narrative Short Film with Post-Pandemic Neo-Traditional Visual Aesthetics</span>
+        </p>
+        <p class="text-muted-gray text-sm md:text-base">
+            <span lang="zh">SIGGRAPH Asia 2026 · Tokyo, Japan</span>
+            <span lang="en" class="hidden">SIGGRAPH Asia 2026 · Tokyo, Japan</span>
+        </p>
+        
+        <div class="mt-12">
+            <a href="#about" class="inline-block border border-warm-gold text-warm-gold px-8 py-3 rounded-sm hover:bg-warm-gold hover:text-dark-bg transition-all duration-300">
+                <span lang="zh">了解项目</span>
+                <span lang="en" class="hidden">Explore Project</span>
+            </a>
+        </div>
+    </div>
+    
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 animate-bounce">
+        <svg class="w-6 h-6 text-warm-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- 项目概述 -->
+<section id="about" class="py-24 px-6">
+    <div class="max-w-5xl mx-auto">
+        <div class="fade-in">
+            <h2 class="font-serif text-3xl md:text-4xl font-semibold text-warm-gold mb-12 text-center">
+                <span lang="zh">项目概述</span>
+                <span lang="en" class="hidden">Project Overview</span>
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="font-serif text-xl font-medium mb-4 text-soft-white">
+                        <span lang="zh">研究背景</span>
+                        <span lang="en" class="hidden">Research Motivation</span>
+                    </h3>
+                    <p class="text-muted-gray leading-relaxed mb-4">
+                        <span lang="zh">后疫情时代，城市居民的社会孤立与生存不安全感普遍上升。在香港，承载数十年城市记忆的历史唐楼正经历政府资助的翻新，同时面临拆除危机，体现着保存与转型的张力。</span>
+                        <span lang="en" class="hidden">The post-pandemic era has witnessed a widespread rise in social isolation and precarity among urban dwellers. In Hong Kong, historic tong lau tenement buildings carrying decades of urban memory are undergoing government-subsidized renovation while facing imminent demolition.</span>
+                    </p>
+                    <p class="text-muted-gray leading-relaxed">
+                        <span lang="zh">与此同时，由内地来港工作的人才组成的「港漂」群体在本土视觉叙事中仍处于边缘地位，他们的日常焦虑与归属感很少被细腻、真实地呈现。生成式AI视频工具的快速发展为低成本、高效率的叙事内容创作开辟了新的可能。</span>
+                        <span lang="en" class="hidden">Meanwhile, the "Hong Kong drifter" group remains underrepresented in local visual narratives. The rapid development of generative AI video tools has opened up new possibilities for low-cost, high-efficiency narrative content production.</span>
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="font-serif text-xl font-medium mb-4 text-soft-white">
+                        <span lang="zh">创作目标</span>
+                        <span lang="en" class="hidden">Creative Objectives</span>
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="border-l-2 border-warm-gold pl-4">
+                            <p class="font-medium text-soft-white mb-1">
+                                <span lang="zh">叙事目标</span>
+                                <span lang="en" class="hidden">Narrative Objective</span>
+                            </p>
+                            <p class="text-muted-gray text-sm">
+                                <span lang="zh">讲述三个陌生人从自我封闭到相互支撑的温暖克制故事，全片仅20句台词，大量依靠视觉符号、肢体语言与环境细节传递情绪。</span>
+                                <span lang="en" class="hidden">To tell a warm, restrained story of three strangers moving from self-isolation to mutual support, using only 20 lines of dialogue and relying heavily on visual symbols.</span>
+                            </p>
+                        </div>
+                        <div class="border-l-2 border-warm-gold pl-4">
+                            <p class="font-medium text-soft-white mb-1">
+                                <span lang="zh">美学目标</span>
+                                <span lang="en" class="hidden">Aesthetic Objective</span>
+                            </p>
+                            <p class="text-muted-gray text-sm">
+                                <span lang="zh">构建「新传统唐楼」视觉风格，保留水磨石楼梯、铁闸、木门框等历史质感，同时融入感应灯、电子门禁等现代翻新元素。</span>
+                                <span lang="en" class="hidden">To construct a "neo-traditional tong lau" visual style, preserving historic textures while integrating modern renovation elements.</span>
+                            </p>
+                        </div>
+                        <div class="border-l-2 border-warm-gold pl-4">
+                            <p class="font-medium text-soft-white mb-1">
+                                <span lang="zh">技术目标</span>
+                                <span lang="en" class="hidden">Technical Objective</span>
+                            </p>
+                            <p class="text-muted-gray text-sm">
+                                <span lang="zh">探索一套可控的人文叙事电影AI辅助生产工作流，总结可复用的提示工程方法与问题解决策略。</span>
+                                <span lang="en" class="hidden">To explore a controllable AI-assisted production workflow for humanistic narrative films, and summarize reusable prompt engineering methods.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 故事与人物 -->
+<section id="story" class="py-24 px-6 bg-black/30">
+    <div class="max-w-6xl mx-auto fade-in">
+        <h2 class="font-serif text-3xl md:text-4xl font-semibold text-warm-gold mb-12 text-center">
+            <span lang="zh">故事与人物</span>
+            <span lang="en" class="hidden">Story & Characters</span>
+        </h2>
+        
+        <div class="max-w-3xl mx-auto text-center mb-16">
+            <p class="text-soft-white leading-relaxed text-lg">
+                <span lang="zh">在中国香港一栋旧楼里，几次看似琐碎的敲门，把三个不擅长求助的人推向彼此。当敲门从催租、争执、维修，变成一种每日确认，门内门外的人都开始改变。</span>
+                <span lang="en" class="hidden">In an old Hong Kong tenement, several trivial knocks push three people who are bad at asking for help towards each other. When knocking becomes a daily confirmation, everyone begins to change.</span>
+            </p>
+        </div>
+        
+        <!-- 人物卡片 -->
+        <div class="grid md:grid-cols-3 gap-8 mb-16">
+            <!-- 林越 -->
+            <div class="character-card group">
+                <div class="mb-5 rounded-lg overflow-hidden border border-muted-gray/20 bg-black/20">
+                    <img src="linyue.jpg" alt="林越 角色定妆照" class="character-img w-full h-96 object-cover object-center">
+                </div>
+                <div class="text-center">
+                    <h3 class="font-serif text-xl font-medium text-soft-white mb-1">
+                        <span lang="zh">林越 · 26岁</span>
+                        <span lang="en" class="hidden">Lin Yue · 26</span>
+                    </h3>
+                    <p class="text-warm-gold text-sm mb-3">
+                        <span lang="zh">被未来困住的人</span>
+                        <span lang="en" class="hidden">Trapped by the future</span>
+                    </p>
+                    <p class="text-muted-gray text-sm leading-relaxed">
+                        <span lang="zh">内地来港金融初级分析师，勤奋务实，永远在计算得失。他嘴上说香港机会多，心里真正害怕的是「读了这么多书，最后还是回到原点」。</span>
+                        <span lang="en" class="hidden">A junior financial analyst from mainland China, diligent and always calculating gains. What he fears most is ending up back where he started.</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- 强叔 -->
+            <div class="character-card group">
+                <div class="mb-5 rounded-lg overflow-hidden border border-muted-gray/20 bg-black/20">
+                    <img src="qiangshu.jpg" alt="陈国强 角色定妆照" class="character-img w-full h-96 object-cover object-center">
+                </div>
+                <div class="text-center">
+                    <h3 class="font-serif text-xl font-medium text-soft-white mb-1">
+                        <span lang="zh">陈国强 · 72岁</span>
+                        <span lang="en" class="hidden">Chen Guoqiang · 72</span>
+                    </h3>
+                    <p class="text-warm-gold text-sm mb-3">
+                        <span lang="zh">被过去困住的人</span>
+                        <span lang="en" class="hidden">Trapped by the past</span>
+                    </p>
+                    <p class="text-muted-gray text-sm leading-relaxed">
+                        <span lang="zh">年轻时在内地闯荡，后来孤身返港，在旧楼做了20年保安。他絮絮叨叨讲当年，不是因为风光，而是害怕这一生没人记得。</span>
+                        <span lang="en" class="hidden">Wandered in mainland China, returned alone, 20 years as security guard. He talks about old days because he fears no one will remember his life.</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- 苏玉珍 -->
+            <div class="character-card group">
+                <div class="mb-5 rounded-lg overflow-hidden border border-muted-gray/20 bg-black/20">
+                    <img src="sutai.jpg" alt="苏玉珍 角色定妆照" class="character-img w-full h-96 object-cover object-center">
+                </div>
+                <div class="text-center">
+                    <h3 class="font-serif text-xl font-medium text-soft-white mb-1">
+                        <span lang="zh">苏玉珍 · 74岁</span>
+                        <span lang="en" class="hidden">Su Yuzhen · 74</span>
+                    </h3>
+                    <p class="text-warm-gold text-sm mb-3">
+                        <span lang="zh">被体面困住的人</span>
+                        <span lang="en" class="hidden">Trapped by dignity</span>
+                    </p>
+                    <p class="text-muted-gray text-sm leading-relaxed">
+                        <span lang="zh">香港土生土长，早年留学英国，丈夫早逝，子女定居英国。坐拥几套房产，极其体面孤傲，却把自己活成了无法低头求助的囚徒。</span>
+                        <span lang="en" class="hidden">Hong Kong born, UK educated, widowed, children in Britain. She owns properties, proud and dignified, yet a prisoner unable to ask for help.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-black/20 p-8 rounded-sm text-center">
+            <h3 class="font-serif text-xl font-medium text-soft-white mb-4">
+                <span lang="zh">核心主题：深沉的情感置换</span>
+                <span lang="en" class="hidden">Core Theme: Deep Emotional Transformation</span>
+            </h3>
+            <p class="text-muted-gray max-w-3xl mx-auto leading-relaxed">
+                <span lang="zh">家国不在护照上，在谁愿意在深夜去敲那扇门。新一代外来者林越，通过「叩门」这一行为，无意中承担起对这片土地及其孤独守望者的责任，完成了从「过客」到「守护者」的情感与身份转换。</span>
+                <span lang="en" class="hidden">Home is not on a passport, but in who will knock on the door late at night. Through knocking, Lin Yue inadvertently takes responsibility, transforming from passer-by to guardian.</span>
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- 视觉符号系统 -->
+<section class="py-24 px-6">
+    <div class="max-w-5xl mx-auto fade-in">
+        <h2 class="font-serif text-3xl md:text-4xl font-semibold text-warm-gold mb-4 text-center">
+            <span lang="zh">视觉符号系统</span>
+            <span lang="en" class="hidden">Visual Symbol System</span>
+        </h2>
+        <p class="text-center text-muted-gray mb-12 max-w-2xl mx-auto">
+            <span lang="zh">每一件核心物品都对应特定的主题意义，共同支撑起克制的叙事表达</span>
+            <span lang="en" class="hidden">Each core object corresponds to a specific thematic meaning, supporting the restrained narrative</span>
+        </p>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="text-center p-6 border border-muted-gray/20 rounded-sm hover:border-warm-gold/50 transition-colors duration-300">
+                <div class="text-3xl mb-3">🚪</div>
+                <p class="text-soft-white font-medium mb-1">
+                    <span lang="zh">门</span>
+                    <span lang="en" class="hidden">Door</span>
+                </p>
+                <p class="text-muted-gray text-xs">
+                    <span lang="zh">开启程度直接对应人物心理距离</span>
+                    <span lang="en" class="hidden">Opening degree = psychological distance</span>
+                </p>
+            </div>
+            <div class="text-center p-6 border border-muted-gray/20 rounded-sm hover:border-warm-gold/50 transition-colors duration-300">
+                <div class="text-3xl mb-3">📧</div>
+                <p class="text-soft-white font-medium mb-1">
+                    <span lang="zh">邮件 / 药盒</span>
+                    <span lang="en" class="hidden">Email / Pill Box</span>
+                </p>
+                <p class="text-muted-gray text-xs">
+                    <span lang="zh">两位主角各自压力的镜像符号</span>
+                    <span lang="en" class="hidden">Mirrored symbols of pressure</span>
+                </p>
+            </div>
+            <div class="text-center p-6 border border-muted-gray/20 rounded-sm hover:border-warm-gold/50 transition-colors duration-300">
+                <div class="text-3xl mb-3">🌧️</div>
+                <p class="text-soft-white font-medium mb-1">
+                    <span lang="zh">雨</span>
+                    <span lang="en" class="hidden">Rain</span>
+                </p>
+                <p class="text-muted-gray text-xs">
+                    <span lang="zh">压抑氛围外化与情感洗涤隐喻</span>
+                    <span lang="en" class="hidden">Depression externalized & cleansing metaphor</span>
+                </p>
+            </div>
+            <div class="text-center p-6 border border-muted-gray/20 rounded-sm hover:border-warm-gold/50 transition-colors duration-300">
+                <div class="text-3xl mb-3">🪟</div>
+                <p class="text-soft-white font-medium mb-1">
+                    <span lang="zh">阳台</span>
+                    <span lang="en" class="hidden">Balcony</span>
+                </p>
+                <p class="text-muted-gray text-xs">
+                    <span lang="zh">全片情感灯塔，代表生活态度</span>
+                    <span lang="en" class="hidden">Emotional lighthouse of the film</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 创作工作流 -->
+<section id="workflow" class="py-24 px-6 bg-black/30">
+    <div class="max-w-5xl mx-auto fade-in">
+        <h2 class="font-serif text-3xl md:text-4xl font-semibold text-warm-gold mb-4 text-center">
+            <span lang="zh">创作工作流</span>
+            <span lang="en" class="hidden">Creative Workflow</span>
+        </h2>
+        <p class="text-center text-muted-gray mb-12 max-w-2xl mx-auto">
+            <span lang="zh">整体制作遵循「人类主导叙事设计 + AI辅助视觉生成 + 人工精修整合」的四阶段工作流</span>
+            <span lang="en" class="hidden">Human-led narrative design + AI-assisted visual generation + manual refinement and integration</span>
+        </p>
+        
+        <div class="space-y-16">
+            <!-- 阶段1 -->
+            <div class="flex flex-col md:flex-row gap-8 items-start">
+                <div class="md:w-1/4">
+                    <div class="text-warm-gold font-serif text-4xl font-bold">01</div>
+                    <h3 class="font-serif text-xl font-medium text-soft-white mt-2">
+                        <span lang="zh">剧本开发与视觉符号系统</span>
+                        <span lang="en" class="hidden">Script & Visual Symbol System</span>
+                    </h3>
+                </div>
+                <div class="md:w-3/4 pt-2">
+                    <p class="text-muted-gray leading-relaxed mb-4">
+                        <span lang="zh">前期由核心创作团队人工完成剧本结构与人物设定。采用三幕剧结构，以三次「敲门」作为推动人物关系的关键节点，同时建立完整的视觉符号系统。</span>
+                        <span lang="en" class="hidden">The core creative team completed script and character design manually. We adopted a three-act structure with three "knocking" scenes as key nodes, and built a complete visual symbol system.</span>
+                    </p>
+                    <p class="text-muted-gray text-sm">
+                        <span lang="zh">使用工具：Microsoft Word（剧本）、Notion（视觉符号整理）</span>
+                        <span lang="en" class="hidden">Tools: Microsoft Word, Notion</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- 阶段2 -->
+            <div class="flex flex-col md:flex-row gap-8 items-start">
+                <div class="md:w-1/4">
+                    <div class="text-warm-gold font-serif text-4xl font-bold">02</div>
+                    <h3 class="font-serif text-xl font-medium text-soft-white mt-2">
+                        <span lang="zh">分镜拆解与提示工程</span>
+                        <span lang="en" class="hidden">Storyboard & Prompt Engineering</span>
+                    </h3>
+                </div>
+                <div class="md:w-3/4 pt-2">
+                    <p class="text-muted-gray leading-relaxed mb-4">
+                        <span lang="zh">将全片拆解为20余个镜头，针对每个镜头进行定向提示工程。核心原则是将文学化的剧本描述转化为结构化的、AI可识别的视觉指令。</span>
+                        <span lang="en" class="hidden">We broke down the film into 20+ shots with targeted prompt engineering, transforming literary descriptions into structured, AI-recognizable visual instructions.</span>
+                    </p>
+                    <div class="bg-black/20 p-4 rounded-sm">
+                        <p class="text-soft-white text-sm font-medium mb-2">
+                            <span lang="zh">标准单镜头提示词五大模块</span>
+                            <span lang="en" class="hidden">Five Modules of Standard Shot Prompt</span>
+                        </p>
+                        <ol class="text-muted-gray text-xs space-y-1 list-decimal list-inside">
+                            <li><span lang="zh">整体色调风格：画面质感、色温、写实风格</span><span lang="en" class="hidden">Overall tone: texture, color temperature, realistic style</span></li>
+                            <li><span lang="zh">场景环境：空间布局、材质细节、光源方向</span><span lang="en" class="hidden">Scene: layout, material details, light direction</span></li>
+                            <li><span lang="zh">人物动作：详细描述动作、表情、状态</span><span lang="en" class="hidden">Character action: movement, expression, state</span></li>
+                            <li><span lang="zh">镜头语言：景别、运镜、景深、时长</span><span lang="en" class="hidden">Camera: shot size, movement, DOF, duration</span></li>
+                            <li><span lang="zh">细节约束：背景细节与风格锚点</span><span lang="en" class="hidden">Constraints: background details and style anchors</span></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 阶段3 -->
+            <div class="flex flex-col md:flex-row gap-8 items-start">
+                <div class="md:w-1/4">
+                    <div class="text-warm-gold font-serif text-4xl font-bold">03</div>
+                    <h3 class="font-serif text-xl font-medium text-soft-white mt-2">
+                        <span lang="zh">多模型AI生成与迭代筛选</span>
+                        <span lang="en" class="hidden">Multi-Model Generation & Screening</span>
+                    </h3>
+                </div>
+                <div class="md:w-3/4 pt-2">
+                    <p class="text-muted-gray leading-relaxed mb-4">
+                        <span lang="zh">采用多模型协同生成策略，匹配不同镜头类型需求。每轮生成后人工筛选可用片段，不合格镜头修改提示词重生成。核心镜头平均迭代3-5次。</span>
+                        <span lang="en" class="hidden">Multi-model collaborative strategy matching different shot types. Clips are manually screened after each round. Core shots are iterated 3-5 times on average.</span>
+                    </p>
+                    <div class="grid grid-cols-3 gap-4 text-sm">
+                        <div class="bg-black/20 p-4 rounded-sm text-center">
+                            <p class="text-soft-white font-medium mb-1">Midjourney</p>
+                            <p class="text-muted-gray text-xs"><span lang="zh">概念美术与角色设计</span><span lang="en" class="hidden">Concept art & characters</span></p>
+                        </div>
+                        <div class="bg-black/20 p-4 rounded-sm text-center">
+                            <p class="text-soft-white font-medium mb-1">Seedance 2.0</p>
+                            <p class="text-muted-gray text-xs"><span lang="zh">多数动态镜头生成</span><span lang="en" class="hidden">Dynamic shots</span></p>
+                        </div>
+                        <div class="bg-black/20 p-4 rounded-sm text-center">
+                            <p class="text-soft-white font-medium mb-1">Seedance 2.0</p>
+                            <p class="text-muted-gray text-xs"><span lang="zh">关键长镜头与情绪特写</span><span lang="en" class="hidden">Long takes & close-ups</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 阶段4 -->
+            <div class="flex flex-col md:flex-row gap-8 items-start">
+                <div class="md:w-1/4">
+                    <div class="text-warm-gold font-serif text-4xl font-bold">04</div>
+                    <h3 class="font-serif text-xl font-medium text-soft-white mt-2">
+                        <span lang="zh">后期制作与音画整合</span>
+                        <span lang="en" class="hidden">Post-Production & Integration</span>
+                    </h3>
+                </div>
+                <div class="md:w-3/4 pt-2">
+                    <p class="text-muted-gray leading-relaxed">
+                        <span lang="zh">使用剪映专业版进行剪辑、调色与声音合成。统一全片色调与画质，修正AI生成的局部细节缺陷。预先设计声音框架，以钢琴单音与环境音为核心，加入雨声、敲门声、街声等音效，完成音画同步并输出成片。</span>
+                        <span lang="en" class="hidden">Editing, color grading and sound synthesis in CapCut Pro. Unified color tone, corrected AI defects. Sound framework based on piano and ambience, with rain, knock and street sound effects added.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 技术挑战 -->
+<section id="challenges" class="py-24 px-6">
+    <div class="max-w-5xl mx-auto fade-in">
+        <h2 class="font-serif text-3xl md:text-4xl font-semibold text-warm-gold mb-4 text-center">
+            <span lang="zh">技术挑战与解决方案</span>
+            <span lang="en" class="hidden">Technical Challenges & Solutions</span>
+        </h2>
+        <p class="text-center text-muted-gray mb-12 max-w-2xl mx-auto">
+            <span lang="zh">针对小团队独立动画创作中的四大核心技术问题，提出基于工作流的实践性解决方案</span>
+            <span lang="en" class="hidden">Practical workflow-based solutions for four core technical challenges in small-team independent creation</span>
+        </p>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="border border-muted-gray/20 rounded-sm p-6 hover:border-warm-gold/50 transition-colors duration-300">
+                <h3 class="font-serif text-xl font-medium text-soft-white mb-3">
+                    <span lang="zh">01 跨镜头人物与场景一致性</span>
+                    <span lang="en" class="hidden">01 Cross-Shot Consistency</span>
+                </h3>
+                <p class="text-muted-gray text-sm mb-4">
+                    <span lang="zh">生成式视频模型在连续多镜头叙事中常出现特征漂移：面部变化、服装跳变、材质不统一，破坏叙事沉浸感。</span>
+                    <span lang="en" class="hidden">Generative models often suffer from feature drift: facial changes, clothing jumps, material inconsistencies that damage narrative immersion.</span>
+                </p>
+                <ul class="text-sm text-muted-gray space-y-2">
+                    <li>• <span lang="zh">标准化设定手册：统一人物表与场景全景图</span><span lang="en" class="hidden">Standardized handbook: unified character sheets & scene maps</span></li>
+                    <li>• <span lang="zh">提示词固定锚点：每镜头开头加入统一风格描述</span><span lang="en" class="hidden">Fixed anchors: unified style description at prompt start</span></li>
+                    <li>• <span lang="zh">统一后期修正：全片调色 + 重绘工具微调细节</span><span lang="en" class="hidden">Unified post-production: color grading + inpainting</span></li>
+                </ul>
+            </div>
+            
+            <div class="border border-muted-gray/20 rounded-sm p-6 hover:border-warm-gold/50 transition-colors duration-300">
+                <h3 class="font-serif text-xl font-medium text-soft-white mb-3">
+                    <span lang="zh">02 多幕叙事的情绪节奏可控性</span>
+                    <span lang="en" class="hidden">02 Controllable Emotional Rhythm</span>
+                </h3>
+                <p class="text-muted-gray text-sm mb-4">
+                    <span lang="zh">AI生成画面倾向于美化或表情扁平，难以精准匹配从开篇压抑到中段渐暖再到高潮释然的情绪梯度。</span>
+                    <span lang="en" class="hidden">AI-generated images tend to be beautified or flat, difficult to match the emotional gradient from depression to warmth to relief.</span>
+                </p>
+                <ul class="text-sm text-muted-gray space-y-2">
+                    <li>• <span lang="zh">情绪分层拆解：5个情绪层级对应固定色温、光质、运镜</span><span lang="en" class="hidden">5 emotional levels with fixed color, light and camera speed</span></li>
+                    <li>• <span lang="zh">具体细节替代抽象情绪：用动作与环境传递情绪</span><span lang="en" class="hidden">Concrete details instead of abstract emotion words</span></li>
+                    <li>• <span lang="zh">时间流逝自然化：服装、天光、晴雨渐进式设计</span><span lang="en" class="hidden">Progressive time design: clothing, light, weather changes</span></li>
+                </ul>
+            </div>
+            
+            <div class="border border-muted-gray/20 rounded-sm p-6 hover:border-warm-gold/50 transition-colors duration-300">
+                <h3 class="font-serif text-xl font-medium text-soft-white mb-3">
+                    <span lang="zh">03 港漂文化细节的隐性呈现</span>
+                    <span lang="en" class="hidden">03 Implicit Cultural Details</span>
+                </h3>
+                <p class="text-muted-gray text-sm mb-4">
+                    <span lang="zh">港漂身份表达易陷入刻板印象，直接文字会打破克制基调；作为背景植入时，AI又常忽略或错误呈现。</span>
+                    <span lang="en" class="hidden">Cultural details easily fall into stereotypes; direct text breaks tone; AI often ignores background details.</span>
+                </p>
+                <ul class="text-sm text-muted-gray space-y-2">
+                    <li>• <span lang="zh">背景层：简体招租广告、找换店海报、取件码</span><span lang="en" class="hidden">Background: rental flyers, exchange ads, pickup codes</span></li>
+                    <li>• <span lang="zh">中景层：转换插头、双时区时钟、家乡快递</span><span lang="en" class="hidden">Mid-shot: adapters, dual clocks, hometown packages</span></li>
+                    <li>• <span lang="zh">特写层：手机家乡壁纸、粤语发音便利贴</span><span lang="en" class="hidden">Close-up: wallpaper, Cantonese pronunciation notes</span></li>
+                </ul>
+            </div>
+            
+            <div class="border border-muted-gray/20 rounded-sm p-6 hover:border-warm-gold/50 transition-colors duration-300">
+                <h3 class="font-serif text-xl font-medium text-soft-white mb-3">
+                    <span lang="zh">04 核心剧情反转的精准交付</span>
+                    <span lang="en" class="hidden">04 Precise Plot Twist Delivery</span>
+                </h3>
+                <p class="text-muted-gray text-sm mb-4">
+                    <span lang="zh">核心反转「邮件不是裁员通知，而是心理健康支持」需要呈现苦涩、荒诞、想笑又忍住的复杂情绪，AI易夸张表达。</span>
+                    <span lang="en" class="hidden">The twist requires complex bitter-absurd emotion. AI tends to exaggerate expressions and destroy the lingering charm.</span>
+                </p>
+                <ul class="text-sm text-muted-gray space-y-2">
+                    <li>• <span lang="zh">分镜头分步生成：拆分为5个连续镜头分别撰写提示</span><span lang="en" class="hidden">Step-by-step generation: 5 consecutive shots with separate prompts</span></li>
+                    <li>• <span lang="zh">明确表演边界：限制微表情幅度，保留东方留白感</span><span lang="en" class="hidden">Clear performance boundaries: limit micro-expressions, retain oriental blank space</span></li>
+                    <li>• <span lang="zh">人工多轮筛选：生成10+版本表情特写人工优选</span><span lang="en" class="hidden">Manual screening: 10+ versions, manually selected</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 主创团队 -->
+<section id="creators" class="py-24 px-6 bg-black/30">
+    <div class="max-w-5xl mx-auto fade-in">
+        <h2 class="font-serif text-3xl md:text-4xl font-semibold text-warm-gold mb-12 text-center">
+            <span lang="zh">主创团队</span>
+            <span lang="en" class="hidden">Creators</span>
+        </h2>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="text-center p-6 border border-muted-gray/20 rounded-sm hover:border-warm-gold/50 transition-colors duration-300">
+                <h3 class="font-serif text-lg font-medium text-soft-white mb-1">Ting Xu</h3>
+                <p class="text-warm-gold text-sm mb-2">徐婷</p>
+                <p class="text-muted-gray text-xs leading-relaxed">
+                    The Hong Kong University of Science and Technology (Guangzhou)<br>
+                    txu560@connect.hkust-gz.edu.cn
+                </p>
+            </div>
+            
+            <div class="text-center p-6 border border-muted-gray/20 rounded-sm hover:border-warm-gold/50 transition-colors duration-300">
+                <h3 class="font-serif text-lg font-medium text-soft-white mb-1">Zixuan Lin</h3>
+                <p class="text-warm-gold text-sm mb-2">林子煊</p>
+                <p class="text-muted-gray text-xs leading-relaxed">
+                    Lingnan University, Hong Kong<br>
+                    zixuan.lin@ln.hk
+                </p>
+            </div>
+            
+            <div class="text-center p-6 border border-muted-gray/20 rounded-sm hover:border-warm-gold/50 transition-colors duration-300">
+                <h3 class="font-serif text-lg font-medium text-soft-white mb-1">Shiqin Hou</h3>
+                <p class="text-warm-gold text-sm mb-2">侯诗琴</p>
+                <p class="text-muted-gray text-xs leading-relaxed">
+                    The Hong Kong University of Science and Technology<br>
+                    shouaf@connect.ust.hk
+                </p>
+            </div>
+            
+            <div class="text-center p-6 border border-muted-gray/20 rounded-sm hover:border-warm-gold/50 transition-colors duration-300">
+                <h3 class="font-serif text-lg font-medium text-soft-white mb-1">Xian Xu*</h3>
+                <p class="text-warm-gold text-sm mb-2">徐娴（通讯作者）</p>
+                <p class="text-muted-gray text-xs leading-relaxed">
+                    Lingnan University, Hong Kong<br>
+                    xianxu@ln.edu.hk
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 观看影片 -->
+<section id="watch" class="py-24 px-6">
+    <div class="max-w-4xl mx-auto text-center fade-in">
+        <h2 class="font-serif text-3xl md:text-4xl font-semibold text-warm-gold mb-6">
+            <span lang="zh">观看影片</span>
+            <span lang="en" class="hidden">Watch the Film</span>
+        </h2>
+        <p class="text-muted-gray mb-10 max-w-xl mx-auto">
+            <span lang="zh">《叩门》全片现已在哔哩哔哩上线，点击下方按钮前往观看完整5分钟版本。</span>
+            <span lang="en" class="hidden">The full 5-minute film is now available on Bilibili. Click the button below to watch.</span>
+        </p>
+        
+        <a href="https://www.bilibili.com/video/BV12teM6RELF/?share_source=copy_web&vd_source=dd8e104763112035a17c85694ed3e6f6" target="_blank" rel="noopener noreferrer" class="inline-block bg-warm-gold text-dark-bg px-10 py-4 rounded-sm font-medium hover:bg-warm-gold/90 transition-colors duration-300">
+            <span lang="zh">前往 Bilibili 观看</span>
+            <span lang="en" class="hidden">Watch on Bilibili</span>
+        </a>
+        
+        <p class="text-muted-gray/60 text-xs mt-6">
+            <span lang="zh">视频链接：https://www.bilibili.com/video/BV12teM6RELF/</span>
+            <span lang="en" class="hidden">Video URL: https://www.bilibili.com/video/BV12teM6RELF/</span>
+        </p>
+    </div>
+</section>
+
+<!-- 页脚 -->
+<footer class="py-12 px-6 border-t border-muted-gray/20">
+    <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-8">
+            <p class="text-muted-gray text-sm mb-3">
+                <span lang="zh">本作品入选 SIGGRAPH Asia 2026 Technical Communications</span>
+                <span lang="en" class="hidden">Accepted to SIGGRAPH Asia 2026 Technical Communications</span>
+            </p>
+            <p class="text-muted-gray/70 text-xs leading-relaxed max-w-4xl mx-auto">
+                ACM Reference Format: Ting Xu, Zixuan Lin, Shiqin Hou, and Xian Xu*. 2026. Knock at the Door: AI-Assisted Narrative Short Film Creation with Post-Pandemic Neo-Traditional Visual Aesthetics. In SIGGRAPH Asia 2026 Technical Communications, December 14–17, 2026, Tokyo, Japan. ACM, New York, NY, USA, 4 pages. https://doi.org/10.1145/3641519.3652487
+            </p>
+        </div>
+        
+        <div class="text-center text-muted-gray/60 text-xs">
+            <p>© 2026 Knock at the Door Production Team. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- 叩门交互按钮 -->
+<button id="knockBtn" class="fixed bottom-8 right-8 z-40 w-14 h-14 rounded-full bg-door-brown/80 border border-warm-gold/50 text-warm-gold flex items-center justify-center hover:bg-door-brown transition-all duration-300 backdrop-blur-sm" title="敲门">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12H9m6 0a2 2 0 11-4 0 2 2 0 014 0zm-6 0a2 2 0 11-4 0 2 2 0 014 0z"></path>
+    </svg>
+</button>
+
+<script>
+    // 中英双语切换
+    const langToggle = document.getElementById('langToggle');
+    const zhElements = document.querySelectorAll('[lang="zh"]');
+    const enElements = document.querySelectorAll('[lang="en"]');
+    let isZh = true;
+    
+    langToggle.addEventListener('click', () => {
+        isZh = !isZh;
+        if (isZh) {
+            zhElements.forEach(el => el.classList.remove('hidden'));
+            enElements.forEach(el => el.classList.add('hidden'));
+            document.documentElement.lang = 'zh-CN';
+        } else {
+            zhElements.forEach(el => el.classList.add('hidden'));
+            enElements.forEach(el => el.classList.remove('hidden'));
+            document.documentElement.lang = 'en';
+        }
+    });
+    
+    // 导航栏滚动效果
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 60) {
+            navbar.classList.add('bg-dark-bg/95', 'backdrop-blur-sm', 'shadow-lg');
+        } else {
+            navbar.classList.remove('bg-dark-bg/95', 'backdrop-blur-sm', 'shadow-lg');
+        }
+    });
+    
+    // 滚动淡入动画
+    const fadeElements = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    fadeElements.forEach(el => observer.observe(el));
+    
+    // 锚点平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const offsetTop = target.offsetTop - 80;
+                window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+            }
+        });
+    });
+
+    // 敲门声效果
+    const knockBtn = document.getElementById('knockBtn');
+    knockBtn.addEventListener('click', () => {
+        // 创建涟漪效果
+        const ripple = document.createElement('span');
+        ripple.classList.add('absolute', 'inset-0', 'rounded-full', 'border', 'border-warm-gold', 'animate-ping');
+        knockBtn.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+
+        // Web Audio 合成敲门声
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playKnock(time, volume = 0.3) {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(150, time);
+            osc.frequency.exponentialRampToValueAtTime(60, time + 0.1);
+            
+            gain.gain.setValueAtTime(volume, time);
+            gain.gain.exponentialRampToValueAtTime(0.001, time + 0.15);
+            
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            osc.start(time);
+            osc.stop(time + 0.15);
+        }
+        
+        const now = audioCtx.currentTime;
+        playKnock(now, 0.4);
+        playKnock(now + 0.18, 0.35);
+    });
+</script>
+
+</body>
+</html>
